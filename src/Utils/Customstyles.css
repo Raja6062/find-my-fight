@@ -1,0 +1,25 @@
+.loginModal .forgetText {
+  font-size: 35px;
+  padding-bottom: 5px;
+}
+.loginModal .forgetText2 {
+  font-size: 18px;
+  color: #8c8989;
+  margin-bottom: 20px;
+}
+.emailinput .form-control {
+  border: 1px solid #8c8989 !important;
+  height: 50px;
+  border-radius: 0;
+}
+@media (max-width: 767px) {
+  .loginModal .forgetText {
+    font-size: 25px;
+    line-height: 32px;
+  }
+}
+.errorText {
+  color: red;
+  text-align: left;
+  padding: 10px;
+}

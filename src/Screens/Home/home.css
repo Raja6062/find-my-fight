@@ -1,0 +1,9 @@
+.home-container {
+  padding-top: 30px;
+  text-align: center;
+}
+
+.home-container a {
+  cursor: pointer;
+  color: blue;
+}

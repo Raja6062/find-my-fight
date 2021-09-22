@@ -1,0 +1,9 @@
+.profile-container {
+  padding-top: 30px;
+  text-align: center;
+}
+
+.profile-container a {
+  cursor: pointer;
+  color: blue;
+}
