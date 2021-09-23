@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Find My Fight",
+  "name": "Find My Fight",
   "icons": [
     {
       "src": "favicon.ico",
@@ -18,7 +18,7 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": ".",
+  "start_url": "https://nodeserver.mydevfactory.com/projects/suvendu/hritika/findmyfight",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"

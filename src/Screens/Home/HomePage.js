@@ -12,6 +12,16 @@ import Nav from 'react-bootstrap/Nav';
 import ScrollContainer from 'react-indiana-drag-scroll';
 import FilterModal from './FilterModal';
 import { useHistory } from 'react-router-dom';
+import logo from '../../assets/images/logo.png';
+import usr from '../../assets/images/usr.jpg';
+import drag1 from '../../assets/images/drag1.jpg';
+import page from '../../assets/images/page.png';
+import gr from '../../assets/images/gr.png';
+import bnr1 from '../../assets/images/bnr1.jpg';
+import bnr2 from '../../assets/images/bnr2.jpg';
+import thumb1 from '../../assets/images/thumb1.jpg';
+import thumb2 from '../../assets/images/thumb2.jpg';
+import thumb3 from '../../assets/images/thumb3.jpg';
 
 export default function Home() {
   const [modalShowc, filterModalshow] = React.useState(false);
@@ -45,7 +55,7 @@ export default function Home() {
               <div className="col-md-12 headMain headMainB">
                 <div className="logobg">
                   <a href="#">
-                    <img src="../images/logo.png" />
+                    <img src={logo} />
                   </a>
                 </div>
                 <div className="middleHead">
@@ -100,7 +110,7 @@ export default function Home() {
                     <div className="hpUser">
                       <Dropdown>
                         <Dropdown.Toggle>
-                          <img src="../images/usr.jpg" />
+                          <img src={usr} />
                           <i class="fal fa-chevron-down"></i>
                         </Dropdown.Toggle>
 
@@ -132,11 +142,11 @@ export default function Home() {
                   <div className="profSecInn">
                     <div className="profSec">
                       <div className="profCircle">
-                        <img src="../images/usr.jpg" />
+                        <img src={usr} />
                       </div>
-                      <img src="../images/drag1.jpg" />
+                      <img src={drag1} />
                       <div className="createStory">
-                        <img src="../images/page.png" />
+                        <img src={page} />
                         <p>Create a Story</p>
                       </div>
                       <div className="profName">William Rayen</div>
@@ -147,9 +157,9 @@ export default function Home() {
                   <div className="profSecInn">
                     <div className="profSec">
                       <div className="profCircle">
-                        <img src="../images/usr.jpg" />
+                        <img src={usr} />
                       </div>
-                      <img src="../images/drag1.jpg" />
+                      <img src={drag1} />
                       <div className="profName">William Rayen</div>
                       <div className="profShadow"></div>
                     </div>
@@ -158,9 +168,9 @@ export default function Home() {
                   <div className="profSecInn">
                     <div className="profSec">
                       <div className="profCircle">
-                        <img src="../images/usr.jpg" />
+                        <img src={usr} />
                       </div>
-                      <img src="../images/drag1.jpg" />
+                      <img src={drag1} />
                       <div className="profName">William Rayen</div>
                       <div className="profShadow"></div>
                     </div>
@@ -169,9 +179,9 @@ export default function Home() {
                   <div className="profSecInn">
                     <div className="profSec">
                       <div className="profCircle">
-                        <img src="../images/usr.jpg" />
+                        <img src={usr} />
                       </div>
-                      <img src="../images/drag1.jpg" />
+                      <img src={drag1} />
                       <div className="profName">William Rayen</div>
                       <div className="profShadow"></div>
                     </div>
@@ -180,9 +190,9 @@ export default function Home() {
                   <div className="profSecInn">
                     <div className="profSec">
                       <div className="profCircle">
-                        <img src="../images/usr.jpg" />
+                        <img src={usr} />
                       </div>
-                      <img src="../images/drag1.jpg" />
+                      <img src={drag1} />
                       <div className="profName">William Rayen</div>
                       <div className="profShadow"></div>
                     </div>
@@ -194,11 +204,11 @@ export default function Home() {
                 <div className="postTop">
                   <div className="postTplft">
                     <span className="postImg">
-                      <img src="../images/usr.jpg" />
+                      <img src={usr} />
                     </span>
                     <div>
                       <h6>
-                        @{userName} ({firstName} {lastName}) <img src="../images/gr.png" />
+                        @{userName} ({firstName} {lastName}) <img src={gr} />
                       </h6>
                       {/* <h6>
                         Petania Rox . <img src="../images/gr.png" />
@@ -236,11 +246,11 @@ export default function Home() {
                 <div className="postTop">
                   <div className="postTplft">
                     <span className="postImg">
-                      <img src="../images/usr.jpg" />
+                      <img src={usr} />
                     </span>
                     <div>
                       <h6>
-                        @{userName} ({firstName} {lastName}) <img src="../images/gr.png" />
+                        @{userName} ({firstName} {lastName}) <img src={gr} />
                       </h6>
                       <p>
                         2h ago . <i class="fas fa-map-marker-alt"></i> Virginia, US . &nbsp;&nbsp;
@@ -270,12 +280,12 @@ export default function Home() {
                 </p>
                 <div className="postBnr" onClick={() => history.push('./PostDetails')}>
                   <div className="mainpostBnr">
-                    <img src="../images/bnr1.jpg" />
+                    <img src={bnr1} />
                   </div>
                   <div className="mainThumb">
-                    <img src="../images/thumb1.jpg" />
-                    <img src="../images/thumb2.jpg" />
-                    <img src="../images/thumb3.jpg" />
+                    <img src={thumb1} />
+                    <img src={thumb2} />
+                    <img src={thumb3} />
                   </div>
                 </div>
                 <div className="bnrBottom">
@@ -302,11 +312,11 @@ export default function Home() {
                 <div className="postTop">
                   <div className="postTplft">
                     <span className="postImg">
-                      <img src="../images/usr.jpg" />
+                      <img src={usr} />
                     </span>
                     <div>
                       <h6>
-                        @{userName} ({firstName} {lastName}) <img src="../images/gr.png" />
+                        @{userName} ({firstName} {lastName}) <img src={gr} />
                       </h6>
                       <p>
                         2h ago . <i class="fas fa-map-marker-alt"></i> Virginia, US . &nbsp;&nbsp;
@@ -336,7 +346,7 @@ export default function Home() {
                 </p>
                 <div className="postBnr">
                   <div className="mainpostBnr">
-                    <img src="../images/bnr2.jpg" />
+                    <img src={bnr2} />
                   </div>
                 </div>
                 <div className="bnrBottom">

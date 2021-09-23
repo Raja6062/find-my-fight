@@ -1,5 +1,6 @@
 {
   "name": "simple-react-boilerplate",
+  "homepage": "https://nodeserver.mydevfactory.com/projects/suvendu/hritika/findmyfight",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

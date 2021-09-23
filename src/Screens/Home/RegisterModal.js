@@ -12,6 +12,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import MyLoader from '../../Components/Comman/loader';
 import '../../Utils/Customstyles.css';
+import logo from '../../assets/images/logo.png';
+
 toast.configure();
 
 const RegisterModal = ({ swichModal, onHide, show }) => {
@@ -49,7 +51,7 @@ const RegisterModal = ({ swichModal, onHide, show }) => {
       <Modal.Body>
         <MyLoader active={loader}>
           <div className="loginLogo">
-            <img src="../images/logo.png" />
+            <img src={logo} />
           </div>
           <h2>Create an account</h2>
           <Formik

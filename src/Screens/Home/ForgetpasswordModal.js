@@ -13,6 +13,17 @@ import MyLoader from '../../Components/Comman/loader';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../../Utils/Customstyles.css';
+import logo from '../../assets/images/logo.png';
+import usr from '../../assets/images/usr.jpg';
+import drag1 from '../../assets/images/drag1.jpg';
+import page from '../../assets/images/page.png';
+import gr from '../../assets/images/gr.png';
+import bnr1 from '../../assets/images/bnr1.jpg';
+import bnr2 from '../../assets/images/bnr2.jpg';
+import thumb1 from '../../assets/images/thumb1.jpg';
+import thumb2 from '../../assets/images/thumb2.jpg';
+import thumb3 from '../../assets/images/thumb3.jpg';
+
 toast.configure();
 const ForgetPasswordModal = ({ show, onHide, className }) => {
   const [loader, setLoader] = useState(false);
@@ -41,7 +52,7 @@ const ForgetPasswordModal = ({ show, onHide, className }) => {
       <Modal.Body>
         <MyLoader active={loader}>
           <div className="loginLogo">
-            <img src="../images/logo.png" />
+            <img src={logo} />
           </div>
 
           <h2 className="forgetText">Reset Password</h2>

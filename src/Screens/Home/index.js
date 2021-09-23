@@ -6,6 +6,17 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import LoginModal from './LoginModal';
 import RegisterModal from './RegisterModal';
 import ForgetPasswordModal from './ForgetpasswordModal';
+import logo from '../../assets/images/logo.png';
+import usr from '../../assets/images/usr.jpg';
+import drag1 from '../../assets/images/drag1.jpg';
+import page from '../../assets/images/page.png';
+import gr from '../../assets/images/gr.png';
+import bnr1 from '../../assets/images/bnr1.jpg';
+import bnr2 from '../../assets/images/bnr2.jpg';
+import thumb1 from '../../assets/images/thumb1.jpg';
+import thumb2 from '../../assets/images/thumb2.jpg';
+import thumb3 from '../../assets/images/thumb3.jpg';
+
 
 export default function Home() {
   //for login modal
@@ -53,7 +64,7 @@ export default function Home() {
               <div className="col-md-12 headMain">
                 <div className="logobg">
                   <a href="#">
-                    <img src="../images/logo.png" alt="logo" />
+                    <img src={logo} />
                   </a>
                 </div>
                 <div className="middleHead"></div>
@@ -96,11 +107,11 @@ export default function Home() {
                 <div className="postTop">
                   <div className="postTplft">
                     <span className="postImg">
-                      <img src="../images/usr.jpg" />
+                      <img src={usr} />
                     </span>
                     <div>
                       <h6>
-                        Petania Rox . <img src="../images/gr.png" />
+                        Petania Rox . <img src={gr} />
                       </h6>
                       <p>
                         2h ago . <i class="fas fa-map-marker-alt"></i> Virginia, US . &nbsp;&nbsp;
@@ -130,12 +141,12 @@ export default function Home() {
                 </p>
                 <div className="postBnr">
                   <div className="mainpostBnr">
-                    <img src="../images/bnr1.jpg" />
+                    <img src={bnr1} />
                   </div>
                   <div className="mainThumb">
-                    <img src="../images/thumb1.jpg" />
-                    <img src="../images/thumb2.jpg" />
-                    <img src="../images/thumb3.jpg" />
+                    <img src={thumb1} />
+                    <img src={thumb2} />
+                    <img src={thumb3} />
                   </div>
                 </div>
                 <div className="bnrBottom">
@@ -162,11 +173,11 @@ export default function Home() {
                 <div className="postTop">
                   <div className="postTplft">
                     <span className="postImg">
-                      <img src="../images/usr.jpg" />
+                      <img src={usr} />
                     </span>
                     <div>
                       <h6>
-                        Petania Rox . <img src="../images/gr.png" />
+                        Petania Rox . <img src={gr} />
                       </h6>
                       <p>
                         2h ago . <i class="fas fa-map-marker-alt"></i> Virginia, US . &nbsp;&nbsp;
@@ -196,7 +207,7 @@ export default function Home() {
                 </p>
                 <div className="postBnr">
                   <div className="mainpostBnr">
-                    <img src="../images/bnr2.jpg" />
+                    <img src={bnr1} />
                   </div>
                 </div>
                 <div className="bnrBottom">

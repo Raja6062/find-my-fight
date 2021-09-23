@@ -1,4 +1,5 @@
-import React from "react";
+import React from 'react';
+import usr from '../../assets/images/usr.jpg';
 
 const FriendRequest = () => {
   return (
@@ -9,7 +10,7 @@ const FriendRequest = () => {
       </div>
       <div className="frSection">
         <div className="frSecImg">
-          <img src="../images/usr.jpg" />
+          <img src={usr} />
         </div>
         <div className="frSecRgt">
           <div className="friendHdn">
@@ -24,7 +25,7 @@ const FriendRequest = () => {
       </div>
       <div className="frSection">
         <div className="frSecImg">
-          <img src="../images/usr.jpg" />
+          <img src={usr} />
         </div>
         <div className="frSecRgt">
           <div className="friendHdn">

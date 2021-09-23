@@ -1,6 +1,6 @@
 
 //Export app constants from here
-export const BASE_URL = "http://nodeserver.mydevfactory.com:8009"
+export const BASE_URL = "https://nodeserver.mydevfactory.com:8009"
 
 
 
