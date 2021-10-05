@@ -41,7 +41,8 @@ export default function Home() {
   const handleLogout = () => {
     console.log('logout');
     localStorage.removeItem('user');
-    history.push('/#');
+    localStorage.removeItem('token');
+    history.push('/');
   };
 
   return (
@@ -115,7 +116,7 @@ export default function Home() {
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu>
-                          <Dropdown.Item href="#/action-1" onClick={handleLogout}>
+                          <Dropdown.Item onClick={handleLogout}>
                             <i class="fal fa-sign-out-alt"></i>
                             Logout
                           </Dropdown.Item>
@@ -203,7 +204,7 @@ export default function Home() {
               <div className="postSection">
                 <div className="postTop">
                   <div className="postTplft">
-                    <span className="postImg">
+                    <span className="postImg" onClick={() => history.push('./ViewProfile')}>
                       <img src={usr} />
                     </span>
                     <div>
@@ -245,7 +246,7 @@ export default function Home() {
               <div className="postSection">
                 <div className="postTop">
                   <div className="postTplft">
-                    <span className="postImg">
+                    <span className="postImg" onClick={() => history.push('./ViewProfile')}>
                       <img src={usr} />
                     </span>
                     <div>
@@ -311,7 +312,7 @@ export default function Home() {
               <div className="postSection">
                 <div className="postTop">
                   <div className="postTplft">
-                    <span className="postImg">
+                    <span className="postImg" onClick={() => history.push('./ViewProfile')}>
                       <img src={usr} />
                     </span>
                     <div>

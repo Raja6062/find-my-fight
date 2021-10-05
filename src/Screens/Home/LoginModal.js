@@ -18,7 +18,6 @@ import logo from '../../assets/images/logo.png';
 
 toast.configure();
 
-
 const LoginModal = ({ swichModal, onHide, show, setForgetModal, setModalShow }) => {
   const history = useHistory();
   const [loader, setLoader] = useState(false);
@@ -38,7 +37,9 @@ const LoginModal = ({ swichModal, onHide, show, setForgetModal, setModalShow }) 
           localStorage.setItem('name', response.result.userName);
           localStorage.setItem('firstname', response.result.firstName);
           localStorage.setItem('lastname', response.result.lastName);
+          localStorage.setItem('token', response.token);
           history.push('/HomePage');
+          //  history.replace('/HomePage');
         } else {
           setLoader(false);
           toast.error(response.message);

@@ -16,7 +16,7 @@ import Carousel from 'react-bootstrap/Carousel';
 import logo from '../../assets/images/logo.png';
 import usr from '../../assets/images/usr.jpg';
 
-export default function Forum() {
+export default function EditProfile() {
   const [modalShowc, filterModalshow] = React.useState(false);
 
   //for add or remove class in header when window scroll
@@ -115,124 +115,78 @@ export default function Forum() {
       <section>
         <div className="container">
           <div className="row">
+            <div className="col-lg-2">{/* <SideMenuComponents /> */}</div>
+            <div className="col-lg-8">
+              <div className="postSection edpForm">
+                <div className="editPostTop">
+                  <img src={usr} />
+                  <div>
+                    <h5>roxx@petania</h5>
+                    <h6>Change Profile Photo</h6>
+                  </div>
+                </div>
+
+                <Form>
+                  <div className="edpTop">
+                    <Form.Group className="mb-3" controlId="formBasictext">
+                      <Form.Label>Name</Form.Label>
+                      <Form.Control type="text" placeholder="Enter Name" />
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="formBasictext">
+                      <Form.Label>User Name</Form.Label>
+                      <Form.Control type="text" placeholder="Enter User Name" />
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="formBasictext">
+                      <Form.Label>Email</Form.Label>
+                      <Form.Control type="email" placeholder="Enter email" />
+                    </Form.Group>
+                  </div>
+                  <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                    <Form.Label>Description</Form.Label>
+                    <Form.Control as="textarea" rows={3} />
+                  </Form.Group>
+                  <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                    <Form.Label>Description</Form.Label>
+                    <div className="edpCheck">
+                      <Form.Check type="checkbox" label="Gym" />
+                      <Form.Check type="checkbox" label="Trainer" />
+                      <Form.Check type="checkbox" label="Athlete" />
+                      <Form.Check type="checkbox" label="Business" />
+                      <Form.Check type="checkbox" label="Promotions" />
+                      <Form.Check type="checkbox" label="Community" />
+                      <Form.Check type="checkbox" label="Officials" />
+                    </div>
+                  </Form.Group>
+                </Form>
+              </div>
+
+              <div className="postSection edpForm">
+                <h3>Simple Questions &amp; Answer</h3>
+
+                <Form>
+                  <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                    <Form.Label>Tell me about where you grew up and what your family life was like.</Form.Label>
+                    <Form.Control as="textarea" rows={3} />
+                  </Form.Group>
+                  <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                    <Form.Label>How did you come up with the idea for your business?</Form.Label>
+                    <Form.Control as="textarea" rows={3} />
+                  </Form.Group>
+                  <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                    <Form.Label>What led you to your career?</Form.Label>
+                    <Form.Control as="textarea" rows={3} />
+                  </Form.Group>
+                  <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                    <Form.Label>Describe a scene of your vision for the future.</Form.Label>
+                    <Form.Control as="textarea" rows={3} />
+                  </Form.Group>
+                  <Button variant="primary" type="submit">
+                    Submit
+                  </Button>
+                </Form>
+              </div>
+            </div>
             <div className="col-lg-2">
-              <SideMenuComponents />
-            </div>
-            <div className="col-lg-7">
-              <div className="fightingTalk">Fighting Talk</div>
-
-              <div className="postSection forumBg">
-                <div className="postTop">
-                  <div className="postTplft">
-                    <span className="postImg">
-                      <img src={usr} />
-                    </span>
-                    <div>
-                      <h6>Sports Ending Letter Game #58</h6>
-                      <p>
-                        2h ago . <i class="fas fa-map-marker-alt"></i> Virginia, US . &nbsp;&nbsp;
-                        <a href="">
-                          <i class="fas fa-globe-americas"></i>
-                        </a>
-                      </p>
-                      <div className="likeCommentLeft">
-                        <span>
-                          <i class="fal fa-mitten"></i> Like
-                        </span>
-                        <span>
-                          <i class="fal fa-comment-alt"></i> Comment
-                        </span>
-                        <span>
-                          <i class="fal fa-share"></i> Share
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="postTprgt">
-                    <div className="likeCommentRight">
-                      <span>156 Likes</span>
-                      <span>56 Comments</span>
-                      <span>32 Shares</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="postSection forumBg">
-                <div className="postTop">
-                  <div className="postTplft">
-                    <span className="postImg">
-                      <img src={usr} />
-                    </span>
-                    <div>
-                      <h6>Sports Ending Letter Game #58</h6>
-                      <p>
-                        2h ago . <i class="fas fa-map-marker-alt"></i> Virginia, US . &nbsp;&nbsp;
-                        <a href="">
-                          <i class="fas fa-globe-americas"></i>
-                        </a>
-                      </p>
-                      <div className="likeCommentLeft">
-                        <span>
-                          <i class="fal fa-mitten"></i> Like
-                        </span>
-                        <span>
-                          <i class="fal fa-comment-alt"></i> Comment
-                        </span>
-                        <span>
-                          <i class="fal fa-share"></i> Share
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="postTprgt">
-                    <div className="likeCommentRight">
-                      <span>156 Likes</span>
-                      <span>56 Comments</span>
-                      <span>32 Shares</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="postSection forumBg">
-                <div className="postTop">
-                  <div className="postTplft">
-                    <span className="postImg">
-                      <img src={usr} />
-                    </span>
-                    <div>
-                      <h6>Sports Ending Letter Game #58</h6>
-                      <p>
-                        2h ago . <i class="fas fa-map-marker-alt"></i> Virginia, US . &nbsp;&nbsp;
-                        <a href="">
-                          <i class="fas fa-globe-americas"></i>
-                        </a>
-                      </p>
-                      <div className="likeCommentLeft">
-                        <span>
-                          <i class="fal fa-mitten"></i> Like
-                        </span>
-                        <span>
-                          <i class="fal fa-comment-alt"></i> Comment
-                        </span>
-                        <span>
-                          <i class="fal fa-share"></i> Share
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="postTprgt">
-                    <div className="likeCommentRight">
-                      <span>156 Likes</span>
-                      <span>56 Comments</span>
-                      <span>32 Shares</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-3">
               {/* <Rightpannel />
               <FriendRequest />
               <FriendStatus/>  */}

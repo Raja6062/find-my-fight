@@ -17,8 +17,9 @@ import thumb1 from '../../assets/images/thumb1.jpg';
 import thumb2 from '../../assets/images/thumb2.jpg';
 import thumb3 from '../../assets/images/thumb3.jpg';
 
-
 export default function Home() {
+  const [token, setToken] = React.useState('');
+
   //for login modal
   const [modalShow, setModalShow] = React.useState(false); ///login
   const [modalShowb, setModalShowB] = React.useState(false); ////register
@@ -27,6 +28,9 @@ export default function Home() {
   //for add or remove class in header when window scroll
   const [scroll, setScroll] = useState(false);
   useEffect(() => {
+    const authtoken = localStorage.getItem('token');
+    console.log('token', authtoken);
+    setToken(authtoken);
     window.addEventListener('scroll', () => {
       setScroll(window.scrollY > 50);
     });
@@ -69,14 +73,24 @@ export default function Home() {
                 </div>
                 <div className="middleHead"></div>
                 <div className="rightHead">
-                  <div className="loginSignup">
+                  {(token === ' ' || token === null) && (
+                    <div className="loginSignup">
+                      <a href="#" className="headLogin" onClick={() => setModalShow(true)}>
+                        Login
+                      </a>
+                      <a href="#" className="headSignup" onClick={() => setModalShowB(true)}>
+                        Signup
+                      </a>
+                    </div>
+                  )}
+                  {/* <div className="loginSignup" >
                     <a href="#" className="headLogin" onClick={() => setModalShow(true)}>
                       Login
                     </a>
                     <a href="#" className="headSignup" onClick={() => setModalShowB(true)}>
                       Signup
                     </a>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>

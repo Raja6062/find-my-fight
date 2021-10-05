@@ -15,6 +15,9 @@ import RegisterModal from '../Screens/Home/RegisterModal';
 import PostDetails from '../Screens/Home/PostDetails';
 import { BrowserRouter as Router, Route, Link, Switch, HashRouter } from 'react-router-dom';
 import HomePage from '../Screens/Home/HomePage';
+import SearchResult from '../Screens/Searchresult/SearchResult';
+import ViewProfile from '../Screens/Viewprofile/ViewProfile';
+import EditProfile from '../Screens/EditProfile/EditProfile';
 const RouteScreen = () => {
   return (
     <HashRouter>
@@ -34,6 +37,10 @@ const RouteScreen = () => {
         <Route path="/register" component={RegisterModal} />
         <Route path="/HomePage" component={HomePage} />
         <Route path="/PostDetails" component={PostDetails} />
+        <Route path="/PostDetails" component={PostDetails} />
+        <Route path="/SearchResult" component={SearchResult} />
+        <Route path="/EditProfile" component={EditProfile} />
+        <Route path="/ViewProfile" component={ViewProfile} />
       </Switch>
     </HashRouter>
   );
