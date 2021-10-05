@@ -35,32 +35,28 @@ export default function ViewProfile() {
 
   //for add or remove class in header when window scroll
   const [scroll, setScroll] = useState(false);
-  const token =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhyaXRpa2EuYnJhaW5pdW1AZ21haWwuY29tIiwiaWQiOiI2MTRjMWQ5ZDAyYzlkYTVmMTYwMDJiZTIiLCJpYXQiOjE2MzM0MTM0NjF9.-ubQ9ruvTMAQ88QvNyT3AZzlakjKNEPsRyOTsK2-ufQ';
   useEffect(() => {
-    profileDetails({ token });
     window.addEventListener('scroll', () => {
       setScroll(window.scrollY > 50);
     });
+    console.log('TEST', '123');
+    profileDetails();
   }, []);
-  const profileDetails = (token) => {
-    // setLoader(true);
-    userProfile(token)
-      .then((response) => {
-        //    setLoader(false);
-        console.log('login', response);
-        if (response.status == true) {
-          //    setLoader(false);
-          console.log('res', response);
-          //     toast.success(response.message);
-        } else {
-          ////  setLoader(false);
-          // toast.error(response.message);
-        }
+
+  const profileDetails = async () => {
+    const token = await localStorage.getItem('token');
+
+    // const data = {
+    //   name: '',
+    //   token,
+    // };
+
+    userProfile({ token })
+      .then((res) => {
+        console.log('res: ', res);
       })
-      .catch((error) => {
-        //  setLoader(false);
-        console.log('error', error);
+      .catch((err) => {
+        console.log(err);
       });
   };
 
