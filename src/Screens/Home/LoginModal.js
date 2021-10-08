@@ -85,18 +85,6 @@ const LoginModal = ({ swichModal, onHide, show, setForgetModal, setModalShow }) 
                   </span>
                   <p className="errorText"> {errors.password && touched.password && errors.password}</p>
                 </Form.Group>
-                {/* <ForgetPasswordModal className="loginModal"  show={forgetmodalShow} onHide={() => setModalShow(false)} swichModal={()=>setForgetModal(true)}/> */}
-                {/* <ForgetPasswordModal className="loginModal"  show={true} onHide={() =>
-                  {
-                     setModalShow(false)
-                  setForgetModal(false)
-                  } }
-                  
-                  /> */}
-                {/* <ForgetPasswordModal className="loginModal"  show={forgetmodalShow} 
-                  /> */}
-
-                {/* <p className="forgotPass"><a href="#" onClick={() =>{showForgotModal();onHide();}} >Forgot Password?</a></p> */}
                 <p className="forgotPass">
                   <a
                     href="#"
@@ -109,8 +97,6 @@ const LoginModal = ({ swichModal, onHide, show, setForgetModal, setModalShow }) 
                     Forgot Password?
                   </a>
                 </p>
-                {/* <p className="forgotPass"><a href="#" onClick={() => setForgetModal(true)} >Forgot Password?</a></p> */}
-                {/* forgotPass = () => {onHide(); showForgotModel()} */}
                 <Button variant="primary" type="submit">
                   Login
                 </Button>

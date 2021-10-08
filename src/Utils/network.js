@@ -17,6 +17,11 @@ export const Network = (method, endpoint, data = {}, headers) => {
         headers: {
           'Content-Type': headers || 'application/json',
           Authorization: `Bearer ${data.token}`,
+          'Access-Control-Allow-Origin' : '*',
+          crossorigin:true
+
+
+
         },
       }).then((res) => {
         resolve(res.data);

@@ -31,6 +31,9 @@ import { userProfile } from '../../Utils/services';
 
 export default function ViewProfile() {
   const [modalShowc, filterModalshow] = React.useState(false);
+  const [name, setName] = React.useState();
+  const [last, setLastName] = React.useState();
+
   const history = useHistory();
 
   //for add or remove class in header when window scroll
@@ -45,15 +48,25 @@ export default function ViewProfile() {
 
   const profileDetails = async () => {
     const token = await localStorage.getItem('token');
+    console.log('token: ', token);
 
     // const data = {
     //   name: '',
     //   token,
     // };
-
     userProfile({ token })
+      // .then((res) => res.json())
+      // .then((res) => {
+      //   console.log(res);
+
       .then((res) => {
         console.log('res: ', res);
+        if (res.status == true) {
+          console.log('if', res);
+          setName(res.result.firstName);
+          setLastName(res.result.lastName);
+        } else {
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -158,7 +171,11 @@ export default function ViewProfile() {
                     </span>
                     <div className="viewProfshort">
                       <h6>
-                        Petania Rox .
+                        {name}
+
+                        {last}
+
+                        {/* Petania Rox . */}
                         <span className="viewprofAddress">
                           <i class="fas fa-map-marker-alt"></i> Virginia, US .
                         </span>
@@ -185,7 +202,10 @@ export default function ViewProfile() {
                       </div>
 
                       <div className="viewProfNames">
-                        <strong>Petania Rox</strong> . <span>Trainer</span>
+                        <strong>
+                          {name} {last}
+                        </strong>{' '}
+                        . <span>Trainer</span>
                       </div>
 
                       <p>

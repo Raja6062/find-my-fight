@@ -20,3 +20,13 @@ export const RegisterSchema = Yup.object().shape({
     .oneOf([Yup.ref('password'), null], 'Password does not match'),
   //  confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match').required('Confirm Password is required'),
 });
+export const editProfileSchema = Yup.object().shape({
+  email: Yup.string().email('Please enter valid email').required('Please enter email'),
+  name: Yup.string().required('Please enter name'),
+  userName: Yup.string().required('Please enter username'),
+  description: Yup.string().required('Please enter description'),
+  // familyLife: Yup.string().required('Please enter familyname'),
+  // idea: Yup.string().required('Please enter idea'),
+  // career: Yup.string().required('Please enter career'),
+  // future: Yup.string().required('Please enter future'),
+});

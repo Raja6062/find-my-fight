@@ -17,3 +17,6 @@ export const forgetPass = (data) => {
 export const userProfile = (data) => {
   return Network('GET', 'user/profile', data);
 };
+export const updateProfile = (data) => {
+  return Network('POST', 'user/updateProfile', data);
+};
