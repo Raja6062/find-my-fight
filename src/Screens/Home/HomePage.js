@@ -22,6 +22,14 @@ import bnr2 from '../../assets/images/bnr2.jpg';
 import thumb1 from '../../assets/images/thumb1.jpg';
 import thumb2 from '../../assets/images/thumb2.jpg';
 import thumb3 from '../../assets/images/thumb3.jpg';
+import '../../Utils/Customstyles.css';
+import '../../Utils/styles.css';
+import Picker from 'emoji-picker-react';
+import MyLoader from '../../Components/Comman/loader';
+import { ToastContainer, toast } from 'react-toastify';
+import axios from 'axios';
+import { AllNewseed } from '../../Utils/services';
+toast.configure();
 
 export default function Home() {
   const [modalShowc, filterModalshow] = React.useState(false);
@@ -33,16 +41,117 @@ export default function Home() {
   const userName = localStorage.getItem('name');
   const firstName = localStorage.getItem('firstname');
   const lastName = localStorage.getItem('lastname');
+  const [chosenEmoji, setChosenEmoji] = useState(null);
+  const [show, setShow] = useState(false);
+  const [file, Profile] = useState();
+  const [emojiname, setEmojiname] = useState('Feeling/Activity');
+  const [loader, setLoader] = useState(false);
+  const [text, setText] = useState();
+  const [icon, setEmojiicon] = useState();
+  const [title, setTitle] = useState();
+  // const[text,setText]=useState();
   useEffect(() => {
     window.addEventListener('scroll', () => {
       setScroll(window.scrollY > 50);
     });
+    allfeeds();
   }, []);
   const handleLogout = () => {
     console.log('logout');
     localStorage.removeItem('user');
     localStorage.removeItem('token');
     history.push('/');
+  };
+  const onEmojiClick = (event, emojiObject) => {
+    console.log('emojiicon', emojiObject.emoji);
+    setChosenEmoji(emojiObject);
+    setEmojiname(emojiObject.names);
+    setEmojiicon(`${text}${emojiObject.emoji}`);
+    console.log('concat', `${text}${emojiObject.emoji}`);
+    setText(`${text}${emojiObject.emoji}`);
+  };
+  console.log('text', text);
+  const showEmoji = () => {
+    setShow(!show);
+  };
+
+  function handleUpload(event) {
+    console.log('imagepath', event.target.files[0].name);
+    Profile(event.target.files[0]);
+  }
+  const ImageThumb = ({ image }) => {
+    return <img src={URL.createObjectURL(image)} alt={image.name} />;
+  };
+  const handleSubmit = () => {
+    console.log('gg');
+    addNewseed();
+  };
+  const textSet = (e) => {
+    console.log('e', e.target.value);
+    setText(e.target.value);
+  };
+  const addNewseed = () => {
+    const token = localStorage.getItem('token');
+    const formData = new FormData();
+    formData.append('title', icon);
+    //  formData.append('title', emojiname);
+    formData.append('image', file);
+    console.log('formData:', formData);
+    setLoader(true);
+    console.log('token:', token);
+    axios({
+      method: 'POST',
+      url: 'https://nodeserver.mydevfactory.com:8009/user/newsfeed',
+      data: formData,
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        setLoader(false);
+        console.log('res:', res);
+        if (res.data.status == true) {
+          toast.success(res.data.message);
+          Profile(null);
+          setChosenEmoji(null);
+        } else {
+          toast.error(res.data.message);
+        }
+      })
+      .catch((error) => {
+        setLoader(false);
+        console.log('error', error);
+      });
+  };
+  const allfeeds = async () => {
+    const token = await localStorage.getItem('token');
+    console.log('token: ', token);
+
+    // const data = {
+    //   name: '',
+    //   token,
+    // };
+    AllNewseed({ token })
+      // .then((res) => res.json())
+      // .then((res) => {
+      //   console.log(res);
+
+      .then((res) => {
+        console.log('res: ', res);
+        if (res.status == true) {
+          console.log('if', res);
+          setTitle(res.result.title);
+          console.log('gbb', title);
+          // setLastName(res.result.lastName);
+          // setDesc(res.result.bio);
+        } else {
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -200,48 +309,79 @@ export default function Home() {
                   </div>
                 </div>
               </ScrollContainer>
-
-              <div className="postSection">
-                <div className="postTop">
-                  <div className="postTplft">
-                    <span className="postImg" onClick={() => history.push('./ViewProfile')}>
-                      <img src={usr} />
-                    </span>
-                    <div>
-                      <h6>
-                        @{userName} ({firstName} {lastName}) <img src={gr} />
-                      </h6>
-                      {/* <h6>
+              <MyLoader active={loader}>
+                <div className="postSection">
+                  <div className="postTop">
+                    <div className="postTplft">
+                      <span className="postImg" onClick={() => history.push('./ViewProfile')}>
+                        <img src={usr} />
+                      </span>
+                      <div>
+                        <h6>
+                          @{userName} ({firstName} {lastName}) <img src={gr} />
+                        </h6>
+                        {/* <h6>
                         Petania Rox . <img src="../images/gr.png" />
                       </h6> */}
-                      <p>
-                        2h ago . <i class="fas fa-map-marker-alt"></i> Virginia, US . &nbsp;&nbsp;
-                        <a href="">
-                          <i class="fas fa-globe-americas"></i>
-                        </a>
-                      </p>
+                        <p>
+                          2h ago . <i class="fas fa-map-marker-alt"></i> Virginia, US . &nbsp;&nbsp;
+                          <a href="">
+                            <i class="fas fa-globe-americas"></i>
+                          </a>
+                        </p>
+                      </div>
                     </div>
                   </div>
+                  <div className="postComment">
+                    <Form>
+                      <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                        {icon ? (
+                          <Form.Control as="textarea" rows={3} value={icon} placeholder="What’s on your mind?" />
+                        ) : (
+                          <Form.Control as="textarea" rows={3} onChange={(e) => textSet(e)} placeholder="What’s on your mind?" />
+                        )}
+                        {/* <Form.Control as="textarea" rows={3} onChange={(e) => textSet(e)} placeholder="What’s on your mind?" /> */}
+                      </Form.Group>
+                    </Form>
+                  </div>
+                  <div className="postCommentFooter">
+                    <a href="#" className="postCom1">
+                      <i class="fas fa-video"></i> Live Video
+                    </a>
+                    <div className="postCom2">
+                      <div className="update-team-photo">
+                        {/* <input type="file" name="img" onChange={(event) => handleImageChange(event)} /> */}
+                        <input type="file" onChange={handleUpload} />
+                        <span className="imagepreview">
+                          {/* <i class="fas fa-image"></i> */}
+                          {file == null ? <i class="fas fa-image"></i> : file && <ImageThumb image={file} />}
+                          {/* {file && <ImageThumb image={file} />} */}
+                        </span>
+                        Photo/Video
+                      </div>
+                    </div>
+                    {/* <a href="" className="postCom3"> */}
+
+                    <div className="postCom3" onClick={showEmoji}>
+                      <span className="postCom3">
+                        {chosenEmoji ? <span>{chosenEmoji.emoji}</span> : <i class="fas fa-smile"></i>}
+                        {show ? <Picker onEmojiClick={onEmojiClick} /> : ''}
+                      </span>
+                      &nbsp;
+                      <span className="emojiname"> {emojiname}</span>
+                    </div>
+                    {text ? (
+                      <Button type="submit" className="postbttn" onClick={handleSubmit}>
+                        Post
+                      </Button>
+                    ) : (
+                      ''
+                    )}
+
+                    {/* </a> */}
+                  </div>
                 </div>
-                <div className="postComment">
-                  <Form>
-                    <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                      <Form.Control as="textarea" rows={3} placeholder="What’s on your mind?" />
-                    </Form.Group>
-                  </Form>
-                </div>
-                <div className="postCommentFooter">
-                  <a href="#" className="postCom1">
-                    <i class="fas fa-video"></i> Live Video
-                  </a>
-                  <a href="#" className="postCom2">
-                    <i class="fas fa-image"></i> Photo/Video
-                  </a>
-                  <a href="#" className="postCom3">
-                    <i class="fas fa-smile"></i> Feeling/Activity
-                  </a>
-                </div>
-              </div>
+              </MyLoader>
 
               <div className="postSection">
                 <div className="postTop">
@@ -276,8 +416,9 @@ export default function Home() {
                   </div>
                 </div>
                 <p>
-                  It is a long established fact that a reader will be distracted by the readable content of a page when looking at its
-                  layout Content here, content here', making it look like readable...
+                  {title}
+                  {/* It is a long established fact that a reader will be distracted by the readable content of a page when looking at its
+                  layout Content here, content here', making it look like readable... */}
                 </p>
                 <div className="postBnr" onClick={() => history.push('./PostDetails')}>
                   <div className="mainpostBnr">

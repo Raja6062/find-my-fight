@@ -13,6 +13,7 @@ import Nav from 'react-bootstrap/Nav';
 import ScrollContainer from 'react-indiana-drag-scroll';
 import FilterModal from '../Home/FilterModal';
 import Carousel from 'react-bootstrap/Carousel';
+import logoB from '../../assets/images/logoB.png';
 import logo from '../../assets/images/logo.png';
 import usr from '../../assets/images/usr.jpg';
 
@@ -41,6 +42,11 @@ export default function Forum() {
                     <img src={logo} />
                   </a>
                 </div>
+                {/* <div className="fightingTalk">
+                  <a href="#">
+                    <img src={logoB} />
+                  </a>
+                </div> */}
                 <div className="middleHead">
                   <Nav activeKey="/">
                     <Nav.Item>
@@ -119,7 +125,12 @@ export default function Forum() {
               <SideMenuComponents />
             </div>
             <div className="col-lg-7">
-              <div className="fightingTalk">Fighting Talk</div>
+              {/* <div className="fightingTalk">Fighting Talk</div> */}
+              <div className="fightingTalk">
+                <a href="#">
+                  <img src={logoB} />
+                </a>
+              </div>
 
               <div className="postSection forumBg">
                 <div className="postTop">

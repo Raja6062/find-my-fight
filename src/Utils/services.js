@@ -15,8 +15,11 @@ export const forgetPass = (data) => {
   return Network('POST', 'user/forget', data);
 };
 export const userProfile = (data) => {
-  return Network('GET', 'user/profile', data);
+  return Network('GET', 'user/getprofiledetail', data);
 };
 export const updateProfile = (data) => {
   return Network('POST', 'user/updateProfile', data);
+};
+export const AllNewseed = (data) => {
+  return Network('GET', 'user/allnewsfeed', data);
 };

@@ -40,16 +40,26 @@ export default function EditProfile() {
   const [description_2, setDescription2] = useState();
   const [description_3, setDescription3] = useState();
   const [description_4, setDescription4] = useState();
-  const [image, Profile] = useState(usr);
+  const [file, setFile] = useState(usr);
   const [selectcheckbox, setSelectbox] = useState([]);
   const [loader, setLoader] = useState(false);
+  const [name, setFirstname] = React.useState();
+  const [surname, setSurname] = React.useState();
+  const [getEmail, setEaddress] = React.useState();
+  const [getDesc, setDecs] = React.useState();
+  // const [desc1, setDecs1] = React.useState();
+  // const [desc2, setDecs2] = React.useState();
+  // const [desc3, setDecs3] = React.useState();
+  // const [desc4, setDecs4] = React.useState();
 
   //for add or remove class in header when window scroll
   const [scroll, setScroll] = useState(false);
   useEffect(() => {
+    console.log('useeffect');
     window.addEventListener('scroll', () => {
       setScroll(window.scrollY > 50);
     });
+    profileDetails();
   }, []);
   const handleLogout = () => {
     console.log('logout');
@@ -57,21 +67,7 @@ export default function EditProfile() {
     localStorage.removeItem('token');
     history.push('/');
   };
-  const handleImageChange = (event) => {
-    console.log('URL.createObjectURL(event.target.files[0])---->', event.target.files[0].name);
-    // Profile(event.target.files[0].name);
-    Profile(event.target.files[0].name);
 
-    // uploadImage(event.target.files[0])
-  };
-  const checkboxClick = (event) => {
-    setSelectbox([...selectcheckbox, event.target.value]);
-    console.log('check:', selectcheckbox);
-  };
-
-  const handleChange = () => {
-    console.log('handlechange');
-  };
   const handleSubmit = () => {
     console.log('gg');
 
@@ -83,19 +79,54 @@ export default function EditProfile() {
     //   setErroruser('Please enter user name.');
     //   return;
     // }
-    if (!email) {
-      emailError('Please enter your email address.');
-      return;
-    }
-    if (!bio) {
-      descError('Please enter description.');
-      return;
-    }
+    // if (!email) {
+    //   emailError('Please enter your email address.');
+    //   return;
+    // }
+    // if (!bio) {
+    //   descError('Please enter description.');
+    //   return;
+    // }
     //getProfileDetails();
     profileUpdate();
   };
+  const profileDetails = async () => {
+    const token = await localStorage.getItem('token');
+    console.log('token: ', token);
 
-  const profileUpdate = (event) => {
+    // const data = {
+    //   name: '',
+    //   token,
+    // };
+    userProfile({ token })
+      // .then((res) => res.json())
+      // .then((res) => {
+      //   console.log(res);
+
+      .then((res) => {
+        console.log('res: ', res);
+        if (res.status == true) {
+          console.log('if', res);
+          setFirstname(res.result.firstName);
+          setSurname(res.result.userName);
+          setEaddress(res.result.email);
+          setDecs(res.result.bio);
+          // setDecs1(res.result.description_1);
+          // setDecs2(res.result.description_2);
+          // setDecs3(res.result.description_3);
+          // setDecs4(res.result.description_4);
+
+          //  console.log("name",)
+          // setLastName(res.result.lastName);
+        } else {
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const profileUpdate = () => {
     const token = localStorage.getItem('token');
     const formData = new FormData();
     // formData.append('firstName ', firstName);
@@ -105,7 +136,7 @@ export default function EditProfile() {
     formData.append('description_2', description_2);
     formData.append('description_3', description_3);
     formData.append('description_4', description_4);
-    formData.append('image', image);
+    formData.append('image', file);
     console.log('formData:', formData);
     setLoader(true);
     console.log('token:', token);
@@ -122,12 +153,12 @@ export default function EditProfile() {
       .then((res) => {
         setLoader(false);
         console.log('res:', res);
-        if (res.status == true) {
+        if (res.data.status == true) {
           toast.success(res.data.message);
-          setError('');
-          setErroruser('');
-          emailError('');
-          descError('');
+          // setError('');
+          // setErroruser('');
+          // emailError('');
+          // descError('');
         } else {
           toast.error(res.data.message);
         }
@@ -138,30 +169,17 @@ export default function EditProfile() {
       });
   };
 
-  const getProfileDetails = async () => {
-    const token = await localStorage.getItem('token');
-
-    // const data = {
-    //   name: '',
-    //   token,
-    // };
-    userProfile({ token })
-      // .then((res) => res.json())
-      // .then((res) => {
-      //   console.log(res);
-
-      .then((res) => {
-        console.log('res: ', res);
-        if (res.status == true) {
-          console.log('if', res);
-          // setName(res.result.firstName);
-          // setLastName(res.result.lastName);
-        } else {
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const handleImageChange = (event) => {
+    console.log('URL.createObjectURL(event.target.files[0])---->', URL.createObjectURL(event.target.files[0]));
+    setFile(event.target.files[0]);
+    // image(event.target.files[0]);
+  };
+  function handleUpload(event) {
+    console.log('file upload', event.target.files[0]);
+    setFile(event.target.files[0]);
+  }
+  const ImageThumb = ({ image }) => {
+    return <img src={URL.createObjectURL(image)} alt={image.name} />;
   };
 
   return (
@@ -258,13 +276,18 @@ export default function EditProfile() {
               <div className="col-lg-8">
                 <div className="postSection edpForm">
                   <div className="editPostTop">
-                    {image == null ? <img src={image} /> : <img src={usr} />}
+                    {/* <img src={usr} /> */}
+                    {file == null ? <img src={usr} /> : file && <ImageThumb image={file} />}
+                    {/* {image == null ? <img src={usr} /> : file && <ImageThumb image={file} />} */}
 
                     <div>
                       <h5>roxx@petania</h5>
                       <div className="update-team-photo">
-                        <input type="file" name="img" onChange={(event) => handleImageChange(event)} />
-                        <h6>Change Profile Photo</h6>
+                        <div>
+                          <input type="file" onChange={handleUpload} />
+                          <h6>Change Profile Photo</h6>
+                          {/* {file && <ImageThumb image={file} />} */}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -273,24 +296,47 @@ export default function EditProfile() {
                     <div className="edpTop">
                       <Form.Group className="mb-3" controlId="formBasictext">
                         <Form.Label>Name</Form.Label>
-                        <Form.Control type="text" placeholder="Enter Name" onChange={(e) => setName(e.target.value)} />
-                        {/* readonly="readonly" */}
+                        <Form.Control
+                          type="text"
+                          placeholder="Enter Name"
+                          value={name}
+                          readonly="readonly"
+                          onChange={(e) => setName(e.target.value)}
+                        />
+
                         <p style={{ color: 'red', padding: '12', textAlign: 'left' }}> {errors}</p>
                       </Form.Group>
                       <Form.Group className="mb-3" controlId="formBasictext">
                         <Form.Label>User Name</Form.Label>
-                        <Form.Control type="text" placeholder="Enter User Name" onChange={(e) => setUsername(e.target.value)} />
+                        <Form.Control
+                          type="text"
+                          placeholder="Enter User Name"
+                          value={surname}
+                          readonly="readonly"
+                          onChange={(e) => setUsername(e.target.value)}
+                        />
                         <p className="errorText"> {errorsuser}</p>
                       </Form.Group>
                       <Form.Group className="mb-3" controlId="formBasictext">
                         <Form.Label>Email</Form.Label>
-                        <Form.Control type="email" placeholder="Enter email" onChange={(e) => setEmail(e.target.value)} />
+                        <Form.Control
+                          type="email"
+                          placeholder="Enter email"
+                          value={getEmail}
+                          readonly="readonly"
+                          onChange={(e) => setEmail(e.target.value)}
+                        />
                         <p className="errorText"> {errorEmail}</p>
                       </Form.Group>
                     </div>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                       <Form.Label>Description</Form.Label>
-                      <Form.Control as="textarea" rows={3} onChange={(e) => setDescription(e.target.value)} />
+                      <Form.Control
+                        as="textarea"
+                        rows={3}
+                        // value={getDesc}
+                        onChange={(e) => setDescription(e.target.value)}
+                      />
                       <p className="errorText"> {error}</p>
                     </Form.Group>
                     {/* <Form.Group className="mb-3" controlId="formBasicCheckbox">

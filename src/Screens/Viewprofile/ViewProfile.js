@@ -33,6 +33,7 @@ export default function ViewProfile() {
   const [modalShowc, filterModalshow] = React.useState(false);
   const [name, setName] = React.useState();
   const [last, setLastName] = React.useState();
+  const [desc, setDesc] = React.useState();
 
   const history = useHistory();
 
@@ -65,6 +66,7 @@ export default function ViewProfile() {
           console.log('if', res);
           setName(res.result.firstName);
           setLastName(res.result.lastName);
+          setDesc(res.result.bio);
         } else {
         }
       })
@@ -174,7 +176,6 @@ export default function ViewProfile() {
                         {name}
 
                         {last}
-
                         {/* Petania Rox . */}
                         <span className="viewprofAddress">
                           <i class="fas fa-map-marker-alt"></i> Virginia, US .
@@ -203,14 +204,16 @@ export default function ViewProfile() {
 
                       <div className="viewProfNames">
                         <strong>
-                          {name} {last}
+                          Petania Rox
+                          {/* {name} {last} */}
                         </strong>{' '}
                         . <span>Trainer</span>
                       </div>
 
                       <p>
-                        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its
-                        layout Content here, content here', making it look like readable..{' '}
+                        {desc}
+                        {/* It is a long established fact that a reader will be distracted by the readable content of a page when looking at its
+                        layout Content here, content here', making it look like readable..{' '} */}
                         <a href="#" className="readMore">
                           read more
                         </a>
