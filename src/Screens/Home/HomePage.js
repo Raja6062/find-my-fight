@@ -49,6 +49,10 @@ export default function Home() {
   const [text, setText] = useState();
   const [icon, setEmojiicon] = useState();
   const [title, setTitle] = useState();
+  const [item, setItems] = useState([]);
+  const hour = new Date().getHours();
+  console.log('hour', hour);
+  const baseImageurl = 'https://nodeserver.mydevfactory.com:8009/uploads/user/newsfeed/';
   // const[text,setText]=useState();
   useEffect(() => {
     window.addEventListener('scroll', () => {
@@ -142,7 +146,7 @@ export default function Home() {
         console.log('res: ', res);
         if (res.status == true) {
           console.log('if', res);
-          setTitle(res.result.title);
+          setItems(res.result);
           console.log('gbb', title);
           // setLastName(res.result.lastName);
           // setDesc(res.result.bio);
@@ -323,12 +327,12 @@ export default function Home() {
                         {/* <h6>
                         Petania Rox . <img src="../images/gr.png" />
                       </h6> */}
-                        <p>
+                        {/* <p>
                           2h ago . <i class="fas fa-map-marker-alt"></i> Virginia, US . &nbsp;&nbsp;
                           <a href="">
                             <i class="fas fa-globe-americas"></i>
                           </a>
-                        </p>
+                        </p> */}
                       </div>
                     </div>
                   </div>
@@ -383,72 +387,84 @@ export default function Home() {
                 </div>
               </MyLoader>
 
-              <div className="postSection">
-                <div className="postTop">
-                  <div className="postTplft">
-                    <span className="postImg" onClick={() => history.push('./ViewProfile')}>
-                      <img src={usr} />
-                    </span>
-                    <div>
-                      <h6>
-                        @{userName} ({firstName} {lastName}) <img src={gr} />
-                      </h6>
-                      <p>
-                        2h ago . <i class="fas fa-map-marker-alt"></i> Virginia, US . &nbsp;&nbsp;
-                        <a href="">
-                          <i class="fas fa-globe-americas"></i>
-                        </a>
-                      </p>
-                    </div>
-                  </div>
-                  <div className="postTprgt">
-                    <Dropdown>
-                      <Dropdown.Toggle>
-                        <i class="fas fa-ellipsis-v"></i>
-                      </Dropdown.Toggle>
+              {item.map((name) => {
+                return (
+                  <>
+                    <div className="postSection">
+                      <div className="postTop">
+                        <div className="postTplft">
+                          <span className="postImg" onClick={() => history.push('./ViewProfile')}>
+                            <img src={usr} />
+                          </span>
+                          <div>
+                            <h6>
+                              @{userName} ({firstName} {lastName}) <img src={gr} />
+                            </h6>
+                            <p>
+                              {hour - new Date(name.createdAt).getHours() < 0
+                                ? 12 + hour - new Date(name.createdAt).getHours()
+                                : hour - new Date(name.createdAt).getHours()}
+                              hour ago. <i class="fas fa-map-marker-alt"></i> Virginia, US . &nbsp;&nbsp;
+                              <a href="">
+                                <i class="fas fa-globe-americas"></i>
+                              </a>
+                            </p>
+                          </div>
+                        </div>
+                        <div className="postTprgt">
+                          <Dropdown>
+                            <Dropdown.Toggle>
+                              <i class="fas fa-ellipsis-v"></i>
+                            </Dropdown.Toggle>
 
-                      <Dropdown.Menu>
-                        <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                        <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-                      </Dropdown.Menu>
-                    </Dropdown>
-                  </div>
-                </div>
-                <p>
-                  {title}
-                  {/* It is a long established fact that a reader will be distracted by the readable content of a page when looking at its
+                            <Dropdown.Menu>
+                              <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                              <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                              <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                            </Dropdown.Menu>
+                          </Dropdown>
+                        </div>
+                      </div>
+
+                      <p>
+                        {name.title}
+
+                        {/* It is a long established fact that a reader will be distracted by the readable content of a page when looking at its
                   layout Content here, content here', making it look like readable... */}
-                </p>
-                <div className="postBnr" onClick={() => history.push('./PostDetails')}>
-                  <div className="mainpostBnr">
-                    <img src={bnr1} />
-                  </div>
-                  <div className="mainThumb">
-                    <img src={thumb1} />
-                    <img src={thumb2} />
-                    <img src={thumb3} />
-                  </div>
-                </div>
-                <div className="bnrBottom">
-                  <div className="likeCommentLeft">
-                    <span>
-                      <i class="fal fa-mitten"></i> Like
-                    </span>
-                    <span>
-                      <i class="fal fa-comment-alt"></i> Comment
-                    </span>
-                    <span>
-                      <i class="fal fa-share"></i> Share
-                    </span>
-                  </div>
-                  <div className="likeCommentRight">
-                    <span>156 Likes</span>
-                    <span>56 Comments</span>
-                    <span>32 Shares</span>
-                  </div>
-                </div>
-              </div>
+                      </p>
+                      <div className="postBnr" onClick={() => history.push('./PostDetails')}>
+                        <div className="mainpostBnr">
+                          <img src={bnr1} />
+                        </div>
+                        <div className="mainThumb">
+                          <img src={`${baseImageurl}${name.image}`} />
+                          {/* <img src={thumb1} /> */}
+                          <img src={thumb2} />
+                          <img src={thumb3} />
+                        </div>
+                      </div>
+                      <div className="bnrBottom">
+                        <div className="likeCommentLeft">
+                          <span>
+                            <i class="fal fa-mitten"></i> Like
+                          </span>
+                          <span>
+                            <i class="fal fa-comment-alt"></i> Comment
+                          </span>
+                          <span>
+                            <i class="fal fa-share"></i> Share
+                          </span>
+                        </div>
+                        <div className="likeCommentRight">
+                          <span>156 Likes</span>
+                          <span>56 Comments</span>
+                          <span>32 Shares</span>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                );
+              })}
 
               <div className="postSection">
                 <div className="postTop">

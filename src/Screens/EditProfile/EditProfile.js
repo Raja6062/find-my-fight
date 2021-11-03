@@ -40,7 +40,7 @@ export default function EditProfile() {
   const [description_2, setDescription2] = useState();
   const [description_3, setDescription3] = useState();
   const [description_4, setDescription4] = useState();
-  const [file, setFile] = useState(usr);
+  const [file, setFile] = useState();
   const [selectcheckbox, setSelectbox] = useState([]);
   const [loader, setLoader] = useState(false);
   const [name, setFirstname] = React.useState();
@@ -179,6 +179,7 @@ export default function EditProfile() {
     setFile(event.target.files[0]);
   }
   const ImageThumb = ({ image }) => {
+    console.log('image', image);
     return <img src={URL.createObjectURL(image)} alt={image.name} />;
   };
 
