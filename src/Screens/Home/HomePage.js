@@ -29,10 +29,12 @@ import MyLoader from '../../Components/Comman/loader';
 import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios';
 import { AllNewseed } from '../../Utils/services';
+import ChangePassword from './Changepassword'
 toast.configure();
 
 export default function Home() {
   const [modalShowc, filterModalshow] = React.useState(false);
+  const [modalShow, setModalShow] = React.useState(false);
   const history = useHistory();
 
   //for add or remove class in header when window scroll
@@ -59,6 +61,7 @@ export default function Home() {
       setScroll(window.scrollY > 50);
     });
     allfeeds();
+    
   }, []);
   const handleLogout = () => {
     console.log('logout');
@@ -160,6 +163,12 @@ export default function Home() {
 
   return (
     <div className="mainWrap">
+      <ChangePassword
+        className="loginModal"
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+        setModalShow={setModalShow}
+      ></ChangePassword>
       {/* for filter modal */}
       <FilterModal className="loginModal filter_modal" show={modalShowc} onHide={() => filterModalshow(false)} />
       <div className={scroll ? 'innerScroll scrolled' : 'innerScroll'}>
@@ -229,6 +238,10 @@ export default function Home() {
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu>
+                        <Dropdown.Item onClick={() => setModalShow(true)}>
+                            <i class="fal fa-sign-out-alt"></i>
+                            Change Password
+                          </Dropdown.Item>
                           <Dropdown.Item onClick={handleLogout}>
                             <i class="fal fa-sign-out-alt"></i>
                             Logout

@@ -18,6 +18,7 @@ import HomePage from '../Screens/Home/HomePage';
 import SearchResult from '../Screens/Searchresult/SearchResult';
 import ViewProfile from '../Screens/Viewprofile/ViewProfile';
 import EditProfile from '../Screens/EditProfile/EditProfile';
+import ChangePassword from '../Screens/Home/Changepassword';
 const RouteScreen = () => {
   return (
     <HashRouter>
@@ -41,6 +42,7 @@ const RouteScreen = () => {
         <Route path="/SearchResult" component={SearchResult} />
         <Route path="/EditProfile" component={EditProfile} />
         <Route path="/ViewProfile" component={ViewProfile} />
+        <Route path="/ChangePassword" component={ChangePassword} />
       </Switch>
     </HashRouter>
   );

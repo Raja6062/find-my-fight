@@ -23,3 +23,7 @@ export const updateProfile = (data) => {
 export const AllNewseed = (data) => {
   return Network('GET', 'user/allnewsfeed', data);
 };
+export const createNewsfeed = (data) => {
+  return Network('POST', 'user/newsfeed', data);
+};
+

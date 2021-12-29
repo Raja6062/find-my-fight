@@ -38,8 +38,16 @@ const LoginModal = ({ swichModal, onHide, show, setForgetModal, setModalShow }) 
           localStorage.setItem('firstname', response.result.firstName);
           localStorage.setItem('lastname', response.result.lastName);
           localStorage.setItem('token', response.token);
-          history.push('/HomePage');
-          //  history.replace('/HomePage');
+          const log=localStorage.getItem('token');
+    const logged=log?true:false;
+    if(logged) {
+      history.replace('/HomePage');
+      window.onpopstate = function(event) {
+        history.go(1);
+      };
+    }
+          // history.push('/HomePage');
+          
         } else {
           setLoader(false);
           toast.error(response.message);
