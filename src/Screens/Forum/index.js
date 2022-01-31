@@ -5,6 +5,11 @@ import FriendRequest from '../../Components/SideMenu/FriendRequest';
 import FriendStatus from '../../Components/SideMenu/FriendStatus';
 import '../../Utils/styles.css';
 import Dropdown from 'react-bootstrap/Dropdown';
+import Modal from 'react-bootstrap/Modal';
+import { Formik, Field, ErrorMessage } from 'formik';
+import { RegisterSchema } from '../../Components/validation';
+import { Link } from 'react-router-dom';
+
 // import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -16,17 +21,130 @@ import Carousel from 'react-bootstrap/Carousel';
 import logoB from '../../assets/images/logoB.png';
 import logo from '../../assets/images/logo.png';
 import usr from '../../assets/images/usr.jpg';
+import { useHistory } from 'react-router-dom';
+import MyLoader from '../../Components/Comman/loader';
+import { ToastContainer, toast } from 'react-toastify';
+import axios from 'axios';
+import { AddForum, AllForum } from '../../Utils/services'
+import { ForumSchema } from '../../Components/validation';
 
-export default function Forum() {
+toast.configure();
+
+export default function Forum(props) {
+  const history = useHistory();
   const [modalShowc, filterModalshow] = React.useState(false);
+  const [loader, setLoader] = useState(false);
+  const [show, setShow] = useState(false);
+  const [topic, setTopic] = useState()
+  const [content, setContent] = useState()
+  const [allForum, setAllForum] = useState([])
+
+  const [token, setToken] = React.useState('');
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   //for add or remove class in header when window scroll
   const [scroll, setScroll] = useState(false);
   useEffect(() => {
+    const authtoken = localStorage.getItem('token');
+    console.log('token', authtoken);
+    setToken(authtoken);
     window.addEventListener('scroll', () => {
       setScroll(window.scrollY > 50);
     });
+    getAllForum()
   }, []);
+
+  const UserId = localStorage.getItem('user');
+  console.log('user id',UserId)
+
+
+  const validation = () => {
+    console.log("save click")
+    console.log("topic", JSON.stringify(topic))
+
+    if (topic && content) {
+      const token = localStorage.getItem('token');
+      console.log("topic", topic, content)
+      axios('https://nodeserver.mydevfactory.com:8009/forum/addforum',{
+        method:"POST",
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        data:JSON.stringify({
+          'topic': topic,
+          'content': content
+        })
+      }
+      )
+        .then((res) => {
+          setLoader(false);
+          console.log('forum res:', res);
+          if (res.data.status == true) {
+            toast.success(res.data.message);
+          } else {
+            toast.error(res.data.message);
+          }
+        })
+        .catch((error) => {
+          setLoader(false);
+          console.log('error', error);
+        });
+      handleClose()
+    } else {
+      toast.error("please fill all field")
+    }
+
+
+  }
+  const getAllForum = () => {
+    const token = localStorage.getItem('token');
+    axios('https://nodeserver.mydevfactory.com:8009/forum/allforum', {
+      method: "GET",
+      headers:
+      {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+
+      }
+    }).then(res => {
+      console.log("allforum", res.data.result)
+      setAllForum(res.data.result)
+    })
+  }
+
+  const deleteData = (id) => {
+    console.log("delete click")
+    const token = localStorage.getItem('token');
+    axios('https://nodeserver.mydevfactory.com:8009/forum/deleteForum', {
+      method: "POST",
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+      data: JSON.stringify({
+        "forum_id": id
+      })
+    })
+      .then(res => {
+        console.log("deteled forum", res)
+        if (res.data.status == true) {
+          toast.success(res.data.message);
+          getAllForum()
+        } else {
+          toast.error(res.data.message);
+        }
+
+      })
+
+
+  }
+
 
   return (
     <div className="mainWrap">
@@ -130,123 +248,100 @@ export default function Forum() {
                 <a href="#">
                   <img src={logoB} />
                 </a>
-              </div>
 
-              <div className="postSection forumBg">
-                <div className="postTop">
-                  <div className="postTplft">
-                    <span className="postImg">
-                      <img src={usr} />
-                    </span>
-                    <div>
-                      <h6>Sports Ending Letter Game #58</h6>
-                      <p>
-                        2h ago . <i class="fas fa-map-marker-alt"></i> Virginia, US . &nbsp;&nbsp;
-                        <a href="">
-                          <i class="fas fa-globe-americas"></i>
-                        </a>
-                      </p>
-                      <div className="likeCommentLeft">
-                        <span>
-                          <i class="fal fa-mitten"></i> Like
+              </div>
+             
+
+              <Modal
+                show={show}
+                onHide={handleClose}
+                backdrop="static"
+                keyboard={false}
+              >
+               
+                 <h1 style={{textAlign:"center",fontWeight:"bold"}}> ADD FORUM</h1>
+                <Modal.Body>
+                  <Form>
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                      <Form.Label>Topic</Form.Label>
+                      <Form.Control type="text" placeholder="Enter title" required onChange={(e) => setTopic(e.target.value)} />
+                    </Form.Group>
+
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                      <Form.Label>Content</Form.Label>
+                      <Form.Control as="textarea" rows="3" placeholder="Enter Something here ..." required onChange={(e) => setContent(e.target.value)} />
+                    </Form.Group>
+                  </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button variant="secondary" onClick={handleClose}>
+                    Close
+                  </Button>
+                  <Button variant="primary" onClick={validation}>Save</Button>
+                </Modal.Footer>
+              </Modal>
+
+              {allForum.map(data => {
+                return (
+                  <div className="postSection forumBg" >
+                    <div className="postTop">
+                      <div className="postTplft">
+                        <span className="postImg">
+                          <Link to={{pathname:"/ForumInfo",state:data.id}}>
+                          <img src={usr}  />
+                          </Link>
+                         
                         </span>
-                        <span>
-                          <i class="fal fa-comment-alt"></i> Comment
-                        </span>
-                        <span>
-                          <i class="fal fa-share"></i> Share
-                        </span>
+                        <div>
+                          <h6>{data.topic}</h6>
+                          <p>
+                            2h ago . <i class="fas fa-map-marker-alt"></i> Virginia, US . &nbsp;&nbsp;
+                            <a href="">
+                              <i class="fas fa-globe-americas"></i>
+                            </a>
+                          </p>
+                          <div className="likeCommentLeft">
+                            <span>
+                              <i class="fal fa-mitten"></i> Like
+                            </span>
+                            <span>
+                              <i class="fal fa-comment-alt"></i> Comment
+                            </span>
+                            <span>
+                              <i class="fal fa-share"></i> Share
+                            </span>
+                            {data.userId.id === UserId ? <span onClick={() => deleteData(data.id)}>
+                              <i class="fa fa-trash" aria-hidden="true" ></i> Delete
+                            </span> : ""}
+
+                          </div>
+                        </div>
+                      </div>
+                      <div className="postTprgt">
+                        <div className="likeCommentRight">
+                          <span>156 Likes</span>
+                          <span>56 Comments</span>
+                          <span>32 Shares</span>
+                        </div>
                       </div>
                     </div>
                   </div>
-                  <div className="postTprgt">
-                    <div className="likeCommentRight">
-                      <span>156 Likes</span>
-                      <span>56 Comments</span>
-                      <span>32 Shares</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                )
 
-              <div className="postSection forumBg">
-                <div className="postTop">
-                  <div className="postTplft">
-                    <span className="postImg">
-                      <img src={usr} />
-                    </span>
-                    <div>
-                      <h6>Sports Ending Letter Game #58</h6>
-                      <p>
-                        2h ago . <i class="fas fa-map-marker-alt"></i> Virginia, US . &nbsp;&nbsp;
-                        <a href="">
-                          <i class="fas fa-globe-americas"></i>
-                        </a>
-                      </p>
-                      <div className="likeCommentLeft">
-                        <span>
-                          <i class="fal fa-mitten"></i> Like
-                        </span>
-                        <span>
-                          <i class="fal fa-comment-alt"></i> Comment
-                        </span>
-                        <span>
-                          <i class="fal fa-share"></i> Share
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="postTprgt">
-                    <div className="likeCommentRight">
-                      <span>156 Likes</span>
-                      <span>56 Comments</span>
-                      <span>32 Shares</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              })}
 
-              <div className="postSection forumBg">
-                <div className="postTop">
-                  <div className="postTplft">
-                    <span className="postImg">
-                      <img src={usr} />
-                    </span>
-                    <div>
-                      <h6>Sports Ending Letter Game #58</h6>
-                      <p>
-                        2h ago . <i class="fas fa-map-marker-alt"></i> Virginia, US . &nbsp;&nbsp;
-                        <a href="">
-                          <i class="fas fa-globe-americas"></i>
-                        </a>
-                      </p>
-                      <div className="likeCommentLeft">
-                        <span>
-                          <i class="fal fa-mitten"></i> Like
-                        </span>
-                        <span>
-                          <i class="fal fa-comment-alt"></i> Comment
-                        </span>
-                        <span>
-                          <i class="fal fa-share"></i> Share
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="postTprgt">
-                    <div className="likeCommentRight">
-                      <span>156 Likes</span>
-                      <span>56 Comments</span>
-                      <span>32 Shares</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+
             </div>
-            <div className="col-lg-3">
+            <div className="col-lg-1">
+            
               {/* <Rightpannel />
               <FriendRequest />
               <FriendStatus/>  */}
+            </div>
+            <div className="col-lg-2" >
+            <Button variant="primary" onClick={handleShow} style={{marginLeft:"44%"}}>
+                Add Forum
+              </Button>
             </div>
           </div>
         </div>

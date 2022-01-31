@@ -14,7 +14,7 @@ export const RegisterSchema = Yup.object().shape({
   password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
   email: Yup.string().email('Please enter valid email').required('Please enter email'),
   userName: Yup.string().min(3, 'User Name must be at least 3 characters').required('User Name is required'),
-  // memberType: Yup.string().required('Member type is required '),
+  memberType: Yup.string().required('Member type is required ').required('Member Type is required'),
   confirmPassword: Yup.string()
     .required('Please re-enter password')
     .oneOf([Yup.ref('password'), null], 'Password does not match'),
@@ -29,4 +29,10 @@ export const editProfileSchema = Yup.object().shape({
   // idea: Yup.string().required('Please enter idea'),
   // career: Yup.string().required('Please enter career'),
   // future: Yup.string().required('Please enter future'),
+});
+
+export const ForumSchema = Yup.object().shape({
+  //   password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
+  topic: Yup.string().required('Please enter topic'),
+  content: Yup.string().required('content is required'),
 });

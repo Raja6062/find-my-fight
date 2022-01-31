@@ -7,6 +7,7 @@ import Trainers from '../Screens/Trainers/index';
 import Business from '../Screens/Business/index';
 import Events from '../Screens/Events/index';
 import Forum from '../Screens/Forum/index';
+import ForumInfo from '../Screens/Forum/ForumInfo';
 import Group from '../Screens/Groups/index';
 import Shop from '../Screens/Shop/index';
 import Community from '../Screens/Community/index';
@@ -31,6 +32,7 @@ const RouteScreen = () => {
         <Route path="/Business" component={Business} />
         <Route path="/Events" component={Events} />
         <Route path="/Forum" component={Forum} />
+        <Route path="/ForumInfo" component={ForumInfo} />
         <Route path="/Group" component={Group} />
         <Route path="/Shop" component={Shop} />
         <Route path="/Community" component={Community} />

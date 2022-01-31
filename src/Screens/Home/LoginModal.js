@@ -29,6 +29,7 @@ const LoginModal = ({ swichModal, onHide, show, setForgetModal, setModalShow }) 
       .then((response) => {
         setLoader(false);
         console.log('login', response);
+        
         if (response.status == true) {
           setLoader(false);
           console.log('res', response);
@@ -37,11 +38,12 @@ const LoginModal = ({ swichModal, onHide, show, setForgetModal, setModalShow }) 
           localStorage.setItem('name', response.result.userName);
           localStorage.setItem('firstname', response.result.firstName);
           localStorage.setItem('lastname', response.result.lastName);
+          localStorage.setItem('ufullname', response.result.userTypeId.ufullname);
           localStorage.setItem('token', response.token);
           const log=localStorage.getItem('token');
     const logged=log?true:false;
     if(logged) {
-      history.replace('/HomePage');
+      history.push("/HomePage",{state:response.result.userName});
       window.onpopstate = function(event) {
         history.go(1);
       };

@@ -21,9 +21,18 @@ export const updateProfile = (data) => {
   return Network('POST', 'user/updateProfile', data);
 };
 export const AllNewseed = (data) => {
-  return Network('GET', 'user/allnewsfeed', data);
+  return Network('GET', 'feed/allnewsfeed', data);
 };
 export const createNewsfeed = (data) => {
-  return Network('POST', 'user/newsfeed', data);
+  return Network('POST', 'feed/newsfeed', data);
+};
+export const AllUserType = (data) => {
+  return Network('GET', 'user/allusertype');
+};
+export const AddForum = (data) => {
+  return Network('POST', 'forum/addforum');
+};
+export const AllForum = (data) => {
+  return Network('GET', 'forum/allforum');
 };
 

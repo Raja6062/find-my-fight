@@ -30,12 +30,14 @@ import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios';
 import { AllNewseed } from '../../Utils/services';
 import ChangePassword from './Changepassword'
+import {AllUserType} from '../../Utils/services'
 toast.configure();
 
 export default function Home() {
   const [modalShowc, filterModalshow] = React.useState(false);
   const [modalShow, setModalShow] = React.useState(false);
   const history = useHistory();
+  const { state } = useHistory()
 
   //for add or remove class in header when window scroll
   const [scroll, setScroll] = useState(false);
@@ -52,15 +54,20 @@ export default function Home() {
   const [icon, setEmojiicon] = useState();
   const [title, setTitle] = useState();
   const [item, setItems] = useState([]);
+  const [flag,setFlag] =useState(true)
   const hour = new Date().getHours();
+
+  const loginUserName=  localStorage.getItem('ufullname');
+
   console.log('hour', hour);
-  const baseImageurl = 'https://nodeserver.mydevfactory.com:8009/uploads/user/newsfeed/';
+  const baseImageurl = 'https://nodeserver.mydevfactory.com:8009/uploads/newsfeed/';
   // const[text,setText]=useState();
   useEffect(() => {
     window.addEventListener('scroll', () => {
       setScroll(window.scrollY > 50);
     });
     allfeeds();
+
     
   }, []);
   const handleLogout = () => {
@@ -83,15 +90,17 @@ export default function Home() {
   };
 
   function handleUpload(event) {
-    console.log('imagepath', event.target.files[0].name);
+    console.log('imagepath', URL.createObjectURL(event.target.files[0]));
     Profile(event.target.files[0]);
   }
   const ImageThumb = ({ image }) => {
     return <img src={URL.createObjectURL(image)} alt={image.name} />;
   };
+ 
   const handleSubmit = () => {
     console.log('gg');
     addNewseed();
+   setFlag(false)
   };
   const textSet = (e) => {
     console.log('e', e.target.value);
@@ -108,7 +117,7 @@ export default function Home() {
     console.log('token:', token);
     axios({
       method: 'POST',
-      url: 'https://nodeserver.mydevfactory.com:8009/user/newsfeed',
+      url: 'https://nodeserver.mydevfactory.com:8009/feed/newsfeed',
       data: formData,
       headers: {
         Accept: 'application/json',
@@ -161,6 +170,8 @@ export default function Home() {
       });
   };
 
+console.log("state",state)
+
   return (
     <div className="mainWrap">
       <ChangePassword
@@ -183,6 +194,11 @@ export default function Home() {
                 </div>
                 <div className="middleHead">
                   <Nav activeKey="/">
+
+                  <Nav.Item style={{marginTop:'5px',padding:"10px",border:"1px solid gray",backgroundColor:"orange",borderRadius:"10px",color:"blue"}}>
+                     {loginUserName}
+                    </Nav.Item>
+
                     <Nav.Item>
                       <Nav.Link href="/">
                         <i class="fas fa-home-lg-alt"></i>
@@ -353,7 +369,7 @@ export default function Home() {
                     <Form>
                       <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
                         {icon ? (
-                          <Form.Control as="textarea" rows={3} value={icon} placeholder="What’s on your mind?" />
+                          <Form.Control as="textarea" rows={3} value={ flag? icon: "" } placeholder="What’s on your mind?" />
                         ) : (
                           <Form.Control as="textarea" rows={3} onChange={(e) => textSet(e)} placeholder="What’s on your mind?" />
                         )}
@@ -371,7 +387,7 @@ export default function Home() {
                         <input type="file" onChange={handleUpload} />
                         <span className="imagepreview">
                           {/* <i class="fas fa-image"></i> */}
-                          {file == null ? <i class="fas fa-image"></i> : file && <ImageThumb image={file} />}
+                          {file == null ? <i class="fas fa-image"></i> : file && <ImageThumb image={file} /> }
                           {/* {file && <ImageThumb image={file} />} */}
                         </span>
                         Photo/Video

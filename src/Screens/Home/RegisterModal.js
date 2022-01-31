@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState ,useEffect} from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -13,19 +13,29 @@ import 'react-toastify/dist/ReactToastify.css';
 import MyLoader from '../../Components/Comman/loader';
 import '../../Utils/Customstyles.css';
 import logo from '../../assets/images/logo.png';
+import {AllUserType} from '../../Utils/services'
 
 toast.configure();
 
 const RegisterModal = ({ swichModal, onHide, show }) => {
   const [loader, setLoader] = useState(false);
+  const [userData,setUserData]= useState([])
+  const [shortName,setShortName] =useState('')
   const showLoader = () => {
     toast('this is a toast alert', {
       position: 'bottom-center',
     });
   };
 
+  useEffect(() => {
+
+    allUserType()
+    
+  }, []);
+
   const onSubmit = (values) => {
     console.log('res success register--->', values);
+    console.log("memberdata",shortName)
     setLoader(true);
     userRegister(values)
       .then((response) => {
@@ -44,6 +54,13 @@ const RegisterModal = ({ swichModal, onHide, show }) => {
         console.log('error', error);
       });
   };
+  const allUserType=()=>{
+    AllUserType().then(res=>{
+      console.log("usertype",res)
+      setUserData(res.result)
+    })
+
+  }
 
   return (
     <Modal className="loginModal" show={show} onHide={onHide} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
@@ -62,10 +79,12 @@ const RegisterModal = ({ swichModal, onHide, show }) => {
               password: '',
               confirmPassword: '',
               userName: '',
-              // memberType:''
+              memberType:'',
+              memberId:shortName
             }}
             validationSchema={RegisterSchema}
-            onSubmit={(values) => onSubmit(values)}
+            onSubmit={(values) =>
+              onSubmit(values)}
           >
             {({ handleChange, errors, handleSubmit, values, touched }) => (
               <Form onSubmit={handleSubmit}>
@@ -93,7 +112,7 @@ const RegisterModal = ({ swichModal, onHide, show }) => {
                   <p className="errorText"> {errors.email && touched.email && errors.email}</p>
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId="formBasicUsername">
+                <Form.Group className="mb-3" controlId="formBasicLastname">
                   <Form.Control type="text" placeholder="User Name" onChange={handleChange('userName')} />
                   <span className="inputIcon">
                     <i class="fal fa-user"></i>
@@ -101,16 +120,20 @@ const RegisterModal = ({ swichModal, onHide, show }) => {
                   <p className="errorText">{errors.userName && touched.userName && errors.userName}</p>
                 </Form.Group>
 
-                {/* <Form.Group className="mb-3 dropDown" controlId="formBasicMembertype">
+                 <Form.Group className="mb-3 dropDown" controlId="formBasicMembertype">
                 <Form.Select aria-label="Default select example" onChange={handleChange('memberType')}>
                     <option>Member Type</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                    {userData.map(data=>{
+                      return(
+                        <option value={data._id} onChange={setShortName(data.ushortname)} >{data.ufullname}</option>
+                      )
+                      
+                    })}
+
                 </Form.Select>
                 <span className="inputIcon"><i class="fal fa-chevron-down"></i></span>
                 <p className="errorText">{errors.memberType && touched.memberType && errors.memberType}</p>
-            </Form.Group> */}
+            </Form.Group> 
 
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                   <Form.Control type="password" placeholder="Password" onChange={handleChange('password')} />
