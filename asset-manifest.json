@@ -1,0 +1,39 @@
+{
+  "files": {
+    "main.css": "/projects/suvendu/hritika/findmyfight/static/css/main.cedfcecc.chunk.css",
+    "main.js": "/projects/suvendu/hritika/findmyfight/static/js/main.72486b59.chunk.js",
+    "main.js.map": "/projects/suvendu/hritika/findmyfight/static/js/main.72486b59.chunk.js.map",
+    "runtime-main.js": "/projects/suvendu/hritika/findmyfight/static/js/runtime-main.da0542b6.js",
+    "runtime-main.js.map": "/projects/suvendu/hritika/findmyfight/static/js/runtime-main.da0542b6.js.map",
+    "static/css/2.ac82d3be.chunk.css": "/projects/suvendu/hritika/findmyfight/static/css/2.ac82d3be.chunk.css",
+    "static/js/2.dfb878d8.chunk.js": "/projects/suvendu/hritika/findmyfight/static/js/2.dfb878d8.chunk.js",
+    "static/js/2.dfb878d8.chunk.js.map": "/projects/suvendu/hritika/findmyfight/static/js/2.dfb878d8.chunk.js.map",
+    "static/js/3.8fde2bf4.chunk.js": "/projects/suvendu/hritika/findmyfight/static/js/3.8fde2bf4.chunk.js",
+    "static/js/3.8fde2bf4.chunk.js.map": "/projects/suvendu/hritika/findmyfight/static/js/3.8fde2bf4.chunk.js.map",
+    "index.html": "/projects/suvendu/hritika/findmyfight/index.html",
+    "static/css/2.ac82d3be.chunk.css.map": "/projects/suvendu/hritika/findmyfight/static/css/2.ac82d3be.chunk.css.map",
+    "static/css/main.cedfcecc.chunk.css.map": "/projects/suvendu/hritika/findmyfight/static/css/main.cedfcecc.chunk.css.map",
+    "static/js/2.dfb878d8.chunk.js.LICENSE.txt": "/projects/suvendu/hritika/findmyfight/static/js/2.dfb878d8.chunk.js.LICENSE.txt",
+    "static/media/ad1.cf908670.jpg": "/projects/suvendu/hritika/findmyfight/static/media/ad1.cf908670.jpg",
+    "static/media/ad2.26399603.jpg": "/projects/suvendu/hritika/findmyfight/static/media/ad2.26399603.jpg",
+    "static/media/bnr1.22f724fe.jpg": "/projects/suvendu/hritika/findmyfight/static/media/bnr1.22f724fe.jpg",
+    "static/media/bnr2.c61652b7.jpg": "/projects/suvendu/hritika/findmyfight/static/media/bnr2.c61652b7.jpg",
+    "static/media/bnr3.14d7a9b2.jpg": "/projects/suvendu/hritika/findmyfight/static/media/bnr3.14d7a9b2.jpg",
+    "static/media/drag1.d52a7309.jpg": "/projects/suvendu/hritika/findmyfight/static/media/drag1.d52a7309.jpg",
+    "static/media/logoB.a9148096.png": "/projects/suvendu/hritika/findmyfight/static/media/logoB.a9148096.png",
+    "static/media/photo1.91c6a8d9.jpg": "/projects/suvendu/hritika/findmyfight/static/media/photo1.91c6a8d9.jpg",
+    "static/media/photo2.f36c6efc.jpg": "/projects/suvendu/hritika/findmyfight/static/media/photo2.f36c6efc.jpg",
+    "static/media/photo3.06f582bc.jpg": "/projects/suvendu/hritika/findmyfight/static/media/photo3.06f582bc.jpg",
+    "static/media/photo4.510000b1.jpg": "/projects/suvendu/hritika/findmyfight/static/media/photo4.510000b1.jpg",
+    "static/media/thumb1.709b1722.jpg": "/projects/suvendu/hritika/findmyfight/static/media/thumb1.709b1722.jpg",
+    "static/media/thumb2.fa0752fd.jpg": "/projects/suvendu/hritika/findmyfight/static/media/thumb2.fa0752fd.jpg",
+    "static/media/thumb3.67a85b95.jpg": "/projects/suvendu/hritika/findmyfight/static/media/thumb3.67a85b95.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.da0542b6.js",
+    "static/css/2.ac82d3be.chunk.css",
+    "static/js/2.dfb878d8.chunk.js",
+    "static/css/main.cedfcecc.chunk.css",
+    "static/js/main.72486b59.chunk.js"
+  ]
+}
