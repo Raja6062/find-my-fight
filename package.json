@@ -11,6 +11,7 @@
     "bootstrap": "^5.1.0",
     "emoji-picker-react": "^3.4.8",
     "formik": "^2.2.9",
+    "gh-pages": "^3.2.3",
     "react": "^17.0.2",
     "react-bootstrap": "^2.0.0-beta.6",
     "react-bootstrap-sweetalert": "^5.2.0",
@@ -24,6 +25,8 @@
     "yup": "^0.32.9"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy":"gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
